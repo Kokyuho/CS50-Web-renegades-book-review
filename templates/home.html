@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+    Welcome, {{ username }}, to the Renegade's Book Review Website
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <h2>
+            What do you want to do today?
+        </h2>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm">
+            <form action="{{ url_for('searchBook') }}" method="post">
+                <label id="search">Search for a book: </label>
+                <input type="text" id="search" name="book">
+                <button>Search</button>
+            </form>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary">Log-out</a>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

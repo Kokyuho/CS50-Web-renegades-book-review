@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+    {{ book.title }} by {{ book.author }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="column">
+            <div class="container">
+                <h2>Book details:</h1>
+                <ul class="list-unstyled">
+                    <li>ISBN: {{ book.isbn }}</li>
+                    <li>Title: {{ book.title }}</li>
+                    <li>Author: {{ book.author }}</li>
+                    <li>Year: {{ book.year }}</li>
+                </ul>
+            </div>
+            <div class="container">
+                <h2>Renegade Users Reviews:</h1>
+                <ul class="list-unstyled">
+                    {% if reviews|length != 0 %}
+                        {% for review in reviews %}
+                        <li>
+                            <p>Review by user {{ review.username }}:</p>
+                            <p>Rating: {{ review.rating }}<p>
+                            <p>Review: {{ review.review }}</p>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Sadly, no user made a review for this book yet. Be the first!</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="container">
+                <h2>Goodread Reviews:</h1>
+                <ul class="list-unstyled">
+                    <li>Average rating: {{ res.json()['books'][0]['average_rating'] }}</li>
+                    <li>Number of ratings: {{ res.json()['books'][0]['work_ratings_count'] }}</li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 col-xs-12">
+            <div class="jumbotron ratingBox">
+                <div class="container">
+                    <h3>Did you read it? Rate this Book!</h3>
+                    <form action="{{ url_for('addReview') }}" method="post">
+                        <input type="hidden" name="book_id" value={{ book.id }}>
+                        <label id="rating">What's your rating for this book (0-5)?</label>
+                        <input type="range" min="0" max="5" value="3" class="slider" id="myRange" step="1" name="rating" oninput="range_weight_disp.value = rating.value">
+                            <output  id="range_weight_disp"></output>
+                        <br>
+                        <label id="search">Please write a review:</label>
+                        <input class="container" type="text" id="review" name="review">
+                        <input type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+    Sorry, your search for "{{ book }}" returned no results!
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+{% endblock %}
