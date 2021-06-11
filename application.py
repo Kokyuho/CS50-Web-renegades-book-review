@@ -19,7 +19,6 @@ Session(app)
 
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
-# engine = create_engine('postgres://spzsobrhlkiabf:ec33fdb1a6fd926e02200c734570d3353c0476e0e5549230c3419175b68abdf1@ec2-79-125-2-142.eu-west-1.compute.amazonaws.com:5432/dema255ndepaf8')
 db = scoped_session(sessionmaker(bind=engine))
 
 # Check if table users exists and create it if not:
